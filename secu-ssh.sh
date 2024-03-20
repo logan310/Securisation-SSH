@@ -18,8 +18,8 @@ sudo apt autoremove -y
 comment
 
 echo "#!/bin/sh
-sudo apt-get update -y && sudo apt-get upgrade -y" > /etc/cron.daily/update
-sudo chmod +x /etc/cron.daily/update
+sudo apt-get update -y && sudo apt-get upgrade -y" > /etc/cron.daily/update.sh
+sudo chmod +x /etc/cron.daily/update.sh
 
 
 # Installation d'un serveur SSH 
