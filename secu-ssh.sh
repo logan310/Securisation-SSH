@@ -34,14 +34,14 @@ echo ""
 echo "Configuration de SSH..."
 sudo chown root:root /etc/ssh/ssh_host_*_key
 chmod -R 600 /etc/ssh/ssh_host_*_key
-sudo sed -i 's/.*Port.*/Port 63127/' /etc/ssh/sshd_config #Le serveur SSH doit dorénavant écouter sur le port 63127
-sudo sed -i 's/.*PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config #L’accès SSH par l’utilisateur root doit être interdite
-sudo sed -i 's/.*Protocol.*/Protocol 2/' /etc/ssh/sshd_config #Utilisation de la version 2 du protocole SSH
-sudo sed -i 's/.*StrictModes.*/StrictModes yes/' /etc/ssh/sshd_config # les droits sur les fichiers sont appliqués de manière stricte par SSH
-sudo sed -i 's/.*UsePrivilegeSeparation.*/UsePrivilegeSeparation sandbox/' /etc/ssh/sshd_config #Mise en œuvre d'une séparation des privilèges à l’aide d’un bac à sable
-sudo sed -i 's/.*PermitEmptyPasswords.*/PermitEmptyPasswords no/' /etc/ssh/sshd_config #L’accès à distance par des comptes ne disposant pas de mot de passe doit être interdit
-sudo sed -i 's/.*MaxAuthTries.*/MaxAuthTries 3/' /etc/ssh/sshd_config #Autoriser 3 tentatives de connexion successives en cas d’erreur dans le mot de passe
-sudo sed -i 's/.*PrintLastLog.*/PrintLastLog yes/' /etc/ssh/sshd_config #Le service doit afficher les informations de dernière connexion à l’utilisateur quand il se connecte #ou "no" ???
+sudo sed -i 's/.*Port.*/Port 63127/' /etc/ssh/sshd_config                                              #Le serveur SSH doit dorénavant écouter sur le port 63127
+sudo sed -i 's/.*PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config                           #L’accès SSH par l’utilisateur root doit être interdite
+sudo sed -i 's/.*Protocol.*/Protocol 2/' /etc/ssh/sshd_config                                          #Utilisation de la version 2 du protocole SSH
+sudo sed -i 's/.*StrictModes.*/StrictModes yes/' /etc/ssh/sshd_config                                  #Les droits sur les fichiers sont appliqués de manière stricte par SSH
+sudo sed -i 's/.*UsePrivilegeSeparation.*/UsePrivilegeSeparation sandbox/' /etc/ssh/sshd_config        #Mise en œuvre d'une séparation des privilèges à l’aide d’un bac à sable
+sudo sed -i 's/.*PermitEmptyPasswords.*/PermitEmptyPasswords no/' /etc/ssh/sshd_config                 #L’accès à distance par des comptes ne disposant pas de mot de passe doit être interdit
+sudo sed -i 's/.*MaxAuthTries.*/MaxAuthTries 3/' /etc/ssh/sshd_config                                  #Autoriser 3 tentatives de connexion successives en cas d’erreur dans le mot de passe
+sudo sed -i 's/.*PrintLastLog.*/PrintLastLog yes/' /etc/ssh/sshd_config                                #Le service doit afficher les informations de dernière connexion à l’utilisateur quand il se connecte #ou "no" ???
 #AllowTcpForwarding no
 #MaxSessions 2
 #TCPKeepAlive no
