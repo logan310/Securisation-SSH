@@ -64,20 +64,29 @@ sed -i 's/.*PubkeyAuthentication.*/PubkeyAuthentication yes/' /etc/ssh/sshd_conf
 sed -i 's/.*AuthorizedKeysFile.*/AuthorizedKeysFile .ssh/authorized_keys/' /etc/ssh/sshd_config
 sudo service ssh restart
 
-whiptail --title "Authentification SSH par clés de chiffrement" --msgbox "Pour se connecter par clé de chiffrement, le client devra générer des clés avec une de ces 2 commandes : 
-ssh-keygen -t rsa -b 2048 -f
-ssh-keygen -t ecdsa -b 256 -f
 
-" 8 78
 
-echo ""
-echo "Le client doit créer une paire de clés de chiffrement :"
-echo "ssh-keygen -b 1024 -t ecdsa" # generation coté client d'une paire de clés ecdsa
-echo "puis ajouter un 'passphrase'"
-echo "Sur la machine cliente, pour la premiere connexion, nous pourrons nous connecter à notre serveur avec la commande suivante"
-echo "ssh-copy-id -i <chemin/nomfichier><utilisateur>@<adresseIP ou nom> -p <numport>"
-echo "Ce qui nous donne : ssh-copy-id -i ~/.ssh/id_ecdsa.pub logan@$ipserv -p $portSSH"
-echo "Nous nous connectons ensuite avec : ssh logan@$ipserv -p $portSSH, apres cela il faut saisir le passphrase."
+whiptail --title "Authentification SSH par clés de chiffrement coté client" --msgbox "Génération de clé avec :
+ssh-keygen -t rsa -b 2048
+
+Ou bien :
+ssh-keygen -t ecdsa -b 256
+
+Il faudra ensuite ajouter un 'passphrase'.
+
+
+Premiere connexion :
+ssh-copy-id -i <chemin/nomfichier><utilisateur>@<IP ou nom> -p <port>
+
+Ce qui nous donne : 
+ssh-copy-id -i ~/.ssh/id_ecdsa.pub logan@$ipserv -p $portSSH
+
+Lors de la première connexion le passephrase nous sera demandé, puis ce ne sera plus le cas.
+
+Nous nous connectons ensuite avec : 
+ssh utilisateur@$ipserv -p $portSSH
+" 26 78 16 
+
 
 
 
