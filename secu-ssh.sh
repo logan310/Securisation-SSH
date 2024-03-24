@@ -3,20 +3,19 @@
 # Par Logan Le Paire
 # Version 6
 ---------------------------------------------------------------------------
-# Variables modifables
+# Variables
 ipserv=$(hostname -I | cut -f1 -d' ') # Adresse IP de notre serveur web (tester avec %IP%)
-mail="exemple.test@gmail.com" # Mail utilisé pour recevoir les alertes
-portSSH="63127" # Utiliser le port SSH par defaut (22) n'est pas recomandé. il faut choisir un port entre 1024 a 65535.
+mail=$(whiptail --inputbox "Pour recevoir des alertes par mail, saisissez une adresse e-mail" 8 39 exemple.test@gmail.com --title "Adresse mail" 3>&1 1>&2 2>&3)            # Mail utilisé pour recevoir les alertes
+portSSH=$(whiptail --inputbox "Pour changer le port SSH, merci de choisir un port entre 1024 a 65535" 8 39 63127 --title "Port SSH (22 par défault)" 3>&1 1>&2 2>&3)        # Utiliser le port SSH par defaut (22) n'est pas recomandé. il faut choisir un port entre 1024 a 65535.
+
+
 
 # Mise à jour du système
-<<comment
 echo ""
 echo "Mise à jour du système..."
-#export DEBIAN_FRONTEND=noninteractive
 sudo apt-get update -y && sudo apt-get upgrade -y
-sudo apt autoremove -y
-comment
 
+# Automatisation des mises à jour
 echo "#!/bin/sh
 sudo apt-get update -y && sudo apt-get upgrade -y" > /etc/cron.daily/update.sh
 sudo chmod +x /etc/cron.daily/update.sh
@@ -73,7 +72,7 @@ echo "Sur la machine cliente, pour la premiere connexion, nous pourrons nous con
 echo "ssh-copy-id -i <chemin/nomfichier><utilisateur>@<adresseIP ou nom> -p <numport>"
 echo "Ce qui nous donne : ssh-copy-id -i ~/.ssh/id_ecdsa.pub logan@$ipserv -p $portSSH"
 echo "Nous nous connectons ensuite avec : ssh logan@$ipserv -p $portSSH, apres cela il faut saisir le passphrase."
-comment
+
 
 
 # Installation de Fail2ban
