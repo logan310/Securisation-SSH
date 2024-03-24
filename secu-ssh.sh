@@ -53,17 +53,19 @@ sudo sed -i 's/.*MaxSessions.*/MaxSessions 2/' /etc/ssh/sshd_config
 #PrintMotd no
 #Banner none
 #AllowUsers ...
+
 echo "#disable weak ssh key exchange algorithms
 KexAlgorithms curve25519-sha256@libssh.org,ecdh-sha2-nistp521,ecdh-sha2-nistp384,ecdh-sha2-nistp256,diffie-hellman-group-exchange-sha256
 Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr,aes256-cbc,aes192-cbc,aes128-cbc,3des-cbc
 MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com,hmac-sha2-512,hmac-sha2-256,umac-128@openssh.com
 " >> /etc/ssh/sshd_config  # Empêche l’usage d’algorithmes de chiffrement dépréciés
 
+
+
 #Mise en place d’une authentification SSH par clés de chiffrement
 sed -i 's/.*PubkeyAuthentication.*/PubkeyAuthentication yes/' /etc/ssh/sshd_config
 sed -i 's/.*AuthorizedKeysFile.*/AuthorizedKeysFile .ssh/authorized_keys/' /etc/ssh/sshd_config
 sudo service ssh restart
-
 
 
 whiptail --title "Authentification SSH par clés de chiffrement coté client" --msgbox "Génération de clé avec :
