@@ -41,10 +41,10 @@ sudo sed -i 's/.*UsePrivilegeSeparation.*/UsePrivilegeSeparation sandbox/' /etc/
 sudo sed -i 's/.*PermitEmptyPasswords.*/PermitEmptyPasswords no/' /etc/ssh/sshd_config                 #L’accès à distance par des comptes ne disposant pas de mot de passe doit être interdit
 sudo sed -i 's/.*MaxAuthTries.*/MaxAuthTries 3/' /etc/ssh/sshd_config                                  #Autoriser 3 tentatives de connexion successives en cas d’erreur dans le mot de passe
 sudo sed -i 's/.*PrintLastLog.*/PrintLastLog yes/' /etc/ssh/sshd_config                                #Le service doit afficher les informations de dernière connexion à l’utilisateur quand il se connecte #ou "no" ???
-#AllowTcpForwarding no
-#MaxSessions 2
+sudo sed -i 's/.*AllowTcpForwarding.*/AllowTcpForwarding no/' /etc/ssh/sshd_config
+sudo sed -i 's/.*X11Forwarding.*/X11Forwarding no/' /etc/ssh/sshd_config
+sudo sed -i 's/.*MaxSessions.*/MaxSessions 2/' /etc/ssh/sshd_config
 #TCPKeepAlive no
-#X11Forwarding no
 #AllowAgentForwarding no
 #LogLevel VERBOSE
 #LoginGraceTime 2m
@@ -63,6 +63,12 @@ MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@op
 sed -i 's/.*PubkeyAuthentication.*/PubkeyAuthentication yes/' /etc/ssh/sshd_config
 sed -i 's/.*AuthorizedKeysFile.*/AuthorizedKeysFile .ssh/authorized_keys/' /etc/ssh/sshd_config
 sudo service ssh restart
+
+whiptail --title "Authentification SSH par clés de chiffrement" --msgbox "Pour se connecter par clé de chiffrement, le client devra générer des clés avec une de ces 2 commandes : 
+ssh-keygen -t rsa -b 2048 -f
+ssh-keygen -t ecdsa -b 256 -f
+
+" 8 78
 
 echo ""
 echo "Le client doit créer une paire de clés de chiffrement :"
@@ -104,4 +110,3 @@ banaction = %(banaction_allports)s
 bantime  = 1w
 findtime = 1d" > /etc/fail2ban/jail.d/custom.conf
 sudo systemctl restart fail2ban
-comment
