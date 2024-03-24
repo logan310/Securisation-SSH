@@ -5,7 +5,7 @@
 ---------------------------------------------------------------------------
 # Variables
 ipserv=$(hostname -I | cut -f1 -d' ') # Adresse IP de notre serveur
-mail=$(whiptail --inputbox "Pour recevoir des alertes par mail, saisissez une adresse e-mail" 8 39 exemple.test@gmail.com --title "Adresse mail" 3>&1 1>&2 2>&3)            # Mail utilisé pour recevoir les alertes
+#mail=$(whiptail --inputbox "Pour recevoir des alertes par mail, saisissez une adresse e-mail" 8 39 exemple.test@gmail.com --title "Adresse mail" 3>&1 1>&2 2>&3)            # Mail utilisé pour recevoir les alertes
 portSSH=$(whiptail --inputbox "Pour changer le port SSH, merci de choisir un port entre 1024 a 65535" 8 39 63127 --title "Port SSH (22 par défault)" 3>&1 1>&2 2>&3)        # Utiliser le port SSH par defaut (22) n'est pas recomandé. il faut choisir un port entre 1024 a 65535.
 
 
@@ -108,7 +108,7 @@ ignoreip = 127.0.0.1 $ipserv
 findtime = 10m
 bantime = 24h
 maxretry = 5
-destemail = $mail
+#destemail = $mail
 action = %(action_mwl)s
 [sshd]
 enabled = true
