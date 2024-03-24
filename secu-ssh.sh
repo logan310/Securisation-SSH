@@ -33,7 +33,7 @@ echo ""
 echo "Configuration de SSH..."
 sudo chown root:root /etc/ssh/ssh_host_*_key
 chmod -R 600 /etc/ssh/ssh_host_*_key
-sudo sed -i 's/.*Port.*/Port 63127/' /etc/ssh/sshd_config                                              #Le serveur SSH doit dorénavant écouter sur le port 63127
+sudo sed -i "s/.*Port.*/Port $portSSH/" /etc/ssh/sshd_config                                              #Le serveur SSH doit dorénavant écouter sur le port 63127
 sudo sed -i 's/.*PermitRootLogin.*/PermitRootLogin no/' /etc/ssh/sshd_config                           #L’accès SSH par l’utilisateur root doit être interdite
 sudo sed -i 's/.*Protocol.*/Protocol 2/' /etc/ssh/sshd_config                                          #Utilisation de la version 2 du protocole SSH
 sudo sed -i 's/.*StrictModes.*/StrictModes yes/' /etc/ssh/sshd_config                                  #Les droits sur les fichiers sont appliqués de manière stricte par SSH
